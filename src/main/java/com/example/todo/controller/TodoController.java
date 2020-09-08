@@ -92,6 +92,7 @@ public class TodoController {
         }
     }
 
+    @GetMapping("/todos/active")
     public ResponseEntity<List<Todo>> findActiveTodos() {
         try {
             List<Todo> activeTodosList = todoRepository.findByCompleted(false);
