@@ -21,8 +21,8 @@ public class TodoController {
     @GetMapping("/todos")
     public ResponseEntity<List<Todo>> getAllTodos() {
         try {
-            List<Todo> todos = new ArrayList<Todo>();
-            todoRepository.findAll().forEach(todos::add);
+            List<Todo> todos = new ArrayList<>();
+            todos.addAll(todoRepository.findAll());
 
             if (todos.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -37,11 +37,7 @@ public class TodoController {
     @GetMapping("/todo/{id}")
     public ResponseEntity<Todo> getTodoById(@PathVariable("id") String id) {
         Optional<Todo> todoData = todoRepository.findById(id);
-        if (todoData.isPresent()) {
-            return new ResponseEntity<>(todoData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return todoData.map(todo -> new ResponseEntity<>(todo, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
