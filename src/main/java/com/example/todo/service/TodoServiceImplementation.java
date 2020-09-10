@@ -18,9 +18,7 @@ public class TodoServiceImplementation implements TodoService {
     @Override
     public List<Todo> getAllTodos() {
 
-        List<Todo> todos = new ArrayList<>();
-        todos.addAll(todoRepository.findAll());
-        return todos;
+        return new ArrayList<>(todoRepository.findAll());
 
     }
 

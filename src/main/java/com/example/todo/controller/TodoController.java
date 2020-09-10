@@ -1,7 +1,6 @@
 package com.example.todo.controller;
 
 import com.example.todo.model.Todo;
-import com.example.todo.repository.TodoRepository;
 import com.example.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +16,12 @@ import java.util.Optional;
 public class TodoController {
 
     @Autowired
-    TodoRepository todoRepository;
-
-    @Autowired
     private TodoService todoService;
 
     @GetMapping("/todos")
     public ResponseEntity<List<Todo>> getAllTodos() {
         try {
-            List<Todo> todos = new ArrayList<>();
-            todos.addAll(todoService.getAllTodos());
+            List<Todo> todos = new ArrayList<>(todoService.getAllTodos());
 
             if (todos.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
