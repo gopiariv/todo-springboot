@@ -31,7 +31,7 @@ public class TodoServiceImplementation implements TodoService {
 
     @Override
     public void createTodo(Todo todo) {
-        todoRepository.save(todo);
+        Todo _todo = todoRepository.save(new Todo(todo.getTitle(), todo.getDescription(), false));
 
     }
 
@@ -61,8 +61,7 @@ public class TodoServiceImplementation implements TodoService {
 
     @Override
     public List<Todo> getAllActiveTodos() {
-        List<Todo> activeTodosList = todoRepository.findByCompleted(false);
+        return todoRepository.findByCompleted(false);
 
-        return activeTodosList;
     }
 }
